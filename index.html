@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arwin V Studios | Classic Fantasy Game Development</title>
+    
+    <!-- Google Fonts: Cinzel for cinematic/classic headings, Crimson Text for novel-like body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config to match Light Classic Fantasy palette -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        parchment: {
+                            light: '#fdfbf7',
+                            DEFAULT: '#f4ecd8',
+                            dark: '#e6dabb',
+                        },
+                        ink: {
+                            light: '#4a463e',
+                            DEFAULT: '#2c2a26',
+                            dark: '#161513',
+                        },
+                        bronze: {
+                            light: '#c8a143',
+                            DEFAULT: '#9e7b23',
+                            dark: '#6e5414',
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['"Cinzel"', 'serif'],
+                        body: ['"Crimson Text"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for parchment texture, elegant dividers, and typography tweaks -->
+    <style>
+        body {
+            background-color: #fdfbf7;
+            /* Subtle SVG noise overlay to create a paper/parchment texture effect */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            color: #2c2a26;
+            overflow-x: hidden;
+        }
+
+        /* Elegant text styling */
+        .text-bronze-gradient {
+            background: linear-gradient(to right, #6e5414, #9e7b23, #6e5414);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Ornate Divider */
+        .ornate-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            opacity: 0.7;
+        }
+        .ornate-divider::before, .ornate-divider::after {
+            content: '';
+            height: 1px;
+            width: 80px;
+            background: #9e7b23;
+            margin: 0 15px;
+        }
+        .ornate-divider-diamond {
+            width: 8px;
+            height: 8px;
+            background: #9e7b23;
+            transform: rotate(45deg);
+        }
+
+        /* Drop Cap for story text */
+        .drop-cap::first-letter {
+            float: left;
+            font-family: "Cinzel", serif;
+            font-size: 3.5rem;
+            line-height: 0.8;
+            padding-top: 4px;
+            padding-right: 8px;
+            color: #9e7b23;
+            font-weight: 600;
+        }
+
+        /* Image treatment */
+        .framed-image {
+            position: relative;
+            padding: 8px;
+            background: #fdfbf7;
+            border: 1px solid #e6dabb;
+            box-shadow: 0 10px 30px rgba(44, 42, 38, 0.08);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .framed-image::before {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border: 1px solid rgba(158, 123, 35, 0.3); /* Bronze inner border */
+            pointer-events: none;
+        }
+        .framed-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(44, 42, 38, 0.12);
+        }
+
+        /* Classic Button */
+        .btn-classic {
+            position: relative;
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            font-family: "Cinzel", serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            color: #2c2a26;
+            background-color: transparent;
+            border: 1px solid #9e7b23;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-classic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #9e7b23;
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .btn-classic:hover {
+            color: #fdfbf7;
+        }
+        .btn-classic:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-body text-ink min-h-screen flex flex-col selection:bg-bronze selection:text-white">
+
+    <!-- Subtle Top Border -->
+    <div class="h-1 w-full bg-bronze-dark opacity-80"></div>
+
+    <!-- Navigation -->
+    <nav class="w-full py-8 px-6 md:px-12 flex justify-between items-center z-10 fade-in">
+        <div class="text-xl md:text-2xl font-heading tracking-widest text-ink font-semibold">
+            ARWIN V STUDIOS
+        </div>
+        <div class="hidden md:flex gap-8 text-xs tracking-[0.2em] uppercase font-heading text-ink-light">
+            <span class="hover:text-bronze cursor-pointer transition-colors">Lore</span>
+            <span class="hover:text-bronze cursor-pointer transition-colors">Projects</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative w-full py-24 md:py-32 flex flex-col items-center justify-center text-center px-4 fade-in" style="animation-delay: 0.2s;">
+        
+        <!-- Unified Logo Image replacing text heading -->
+        <img src="logo.png" 
+             alt="Arwin V Studios Logo" 
+             class="w-full max-w-2xl md:max-w-4xl mx-auto mix-blend-multiply mb-2 select-none pointer-events-none">
+        
+        <div class="ornate-divider">
+            <div class="ornate-divider-diamond"></div>
+        </div>
+
+        <p class="text-xl md:text-2xl text-ink-light font-body italic max-w-2xl mx-auto leading-relaxed mt-4">
+            Crafting interactive tales of myth, magic, and enduring legacy.
+        </p>
+        
+    </header>
+
+    <!-- Current Project Section (Raven Light) -->
+    <main class="flex-grow w-full max-w-6xl mx-auto px-6 md:px-12 py-16 mb-20 fade-in" style="animation-delay: 0.4s;">
+        
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <span class="font-heading text-sm uppercase tracking-[0.3em] text-bronze">Current Project</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+            
+            <!-- Left Column: Media (Art & Video) -->
+            <div class="lg:col-span-5 order-2 lg:order-1 flex flex-col gap-10">
+                
+                <!-- Cover Art -->
+                <div class="framed-image">
+                    <!-- Placeholder tailored to the light/parchment aesthetic -->
+                    <img src="raven-light-cover.jpg" 
+                         alt="Raven Light Book Cover Art Placeholder" 
+                         class="w-full h-auto object-cover opacity-95">
+                </div>
+                <!-- YouTube Video Embed -->
+                <!-- YouTube Video Embed -->
+                        <div class="framed-image">
+                            <div class="aspect-video relative w-full bg-ink-dark">
+                                <iframe src="https://www.youtube-nocookie.com/embed/EEjpeOKlbBc"
+                                        class="absolute top-0 left-0 w-full h-full opacity-90 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                                        title="Raven Light Trailer"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                        
+                       
+                    </div>
+                                    
+
+            </div>
+
+            <!-- Right Column: Lore & Info -->
+            <div class="lg:col-span-7 flex flex-col justify-center order-1 lg:order-2">
+                
+                <h2 class="text-4xl md:text-5xl font-heading font-normal text-ink mb-3 leading-tight">
+                    Raven Light
+                </h2>
+                
+                <h3 class="text-xl md:text-2xl text-bronze font-heading tracking-wide mb-8">
+                    Part I: War of The Gods
+                </h3>
+                
+                <div class="space-y-6 text-ink-light text-lg md:text-xl leading-relaxed mb-10">
+                    <p class="drop-cap">
+                        Step into the fractured realm of Lauren Agathi, a world torn asunder by the hubris of ancient deities and the remnants of a shattered cosmos. Where once the eternal flame brought prosperity, only embers remain.
+                    </p>
+                    <p>
+                        In this meticulously crafted Action RPG and companion novel, you must navigate a landscape steeped in archaic magic and visceral combat. Unearth the forgotten truths hidden within the grand libraries and ancient ruins of a world abandoned by its creators.
+                    </p>
+                    <p class="italic text-ink">
+                        Will you restore the light, or let the parchment burn?
+                    </p>
+                </div>
+                
+                <div class="pt-6">
+                    <button class="btn-classic">
+                        Explore the Archives
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-parchment-dark mt-auto py-10 text-center relative">
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-parchment-light px-4 text-bronze">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
+            </svg>
+        </div>
+        <p class="text-ink-light font-heading text-xs tracking-widest uppercase">
+            &copy; 2026 Arwin V Studios. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
